@@ -1,0 +1,57 @@
+{
+  "name": "matrix-puppet-hangouts",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "DEBUG=matrix-puppet:* node index.js",
+    "test": "echo \"no tests at this time\"; exit 1"
+  },
+  "keywords": [
+    "matrix",
+    "hangouts"
+  ],
+  "contributors": [
+    "Keyvan Fatehi",
+    "Andrew Johnson"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "matrix-puppet-bridge": "^1.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.12.2"
+  },
+  "eslintConfig": {
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+      "no-console": 0,
+      "indent": [
+        "error",
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "linebreak-style": [
+        "error",
+        "unix"
+      ],
+      "semi": [
+        "error",
+        "always"
+      ],
+      "no-unused-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "^_"
+        }
+      ]
+    }
+  }
+}

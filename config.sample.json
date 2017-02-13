@@ -1,0 +1,9 @@
+{
+  "registrationPath": "hangouts-registration.yaml",
+  "port": 8090,
+  "bridge": {
+    "homeserverUrl": "https://your-home-server.example.org",
+    "domain": "example.org",
+    "registration": "hangouts-registration.yaml"
+  }
+}
