@@ -42,7 +42,7 @@ Copy this `hangouts-registration.yaml` file to your home server, then edit it, s
 
 Edit your homeserver.yaml file and update the `app_service_config_files` with the path to the `hangouts-registration.yaml` file.
 
-Launch the bridge with ```node index.js```.
+Launch the bridge with ```npm start```.
 
 Restart your HS.
 
