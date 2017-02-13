@@ -51,3 +51,4 @@ Restart your HS.
 * Add a bot to each hangouts bridge room and use the bot's presence to indicate whether the bridge is running. This is an easy way to check on the status of the bridge.
 * Read receipt support.
 * Full image message support in both directions.
+* Typing notification support.
