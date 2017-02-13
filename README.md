@@ -1,4 +1,4 @@
-# hangouts-bridge
+# matrix-puppet-hangouts
 
 This is a Matrix bridge for Google Hangouts.
 It logs in as (aka "puppets") both your matrix user and your hangouts user to
@@ -8,7 +8,7 @@ https://github.com/AndrewJDR/matrix-puppet-bridge
 To interact with the google hangouts servers, this bridge uses a python hangouts client library called hangups:
 https://github.com/tdryer/hangups
 
-# requirements
+## requirements
 
 ### For hangups, python3 is required:
 sudo apt install python3 python3-dev
@@ -17,7 +17,7 @@ sudo apt install python3 python3-dev
 ### Install hangups system-wide:
 `sudo pip3 install hangups`
 
-# installation
+## installation
 
 clone this repo
 
@@ -25,7 +25,7 @@ cd into the directory
 
 run `npm install`
 
-# configure
+## configure
 
 Copy `config.sample.json` to `config.json` and update it to match your setup
 
@@ -49,7 +49,7 @@ Launch the bridge with ```npm start```.
 
 Restart your HS.
 
-# TODO
+## TODO
 * Be able to start a brand new hangouts conversation fully from within a matrix client by choosing participants from your google contacts list. Currently, to start a new conversation this way, you'll have to start the conversation with an official hangouts client where your full contact list is available and once you send a message a bridged room will automatically be created for you. After this, you can carry on the rest of the conversation using your matrix client. Naturally, any incoming message will also automatically create a bridged room for you, so this limitation only applies when creating brand new rooms yourself. See this comment by tfreedman for a proposed solution to this problem - https://github.com/kfatehi/matrix-puppet-facebook/issues/2#issuecomment-274170696 and if you have any better ideas, please let us know!
 * Add a bot to each hangouts bridge room and use the bot's presence to indicate whether the bridge is running. This is an easy way to check on the status of the bridge.
 * Read receipt support.
