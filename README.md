@@ -5,16 +5,19 @@ It logs in as (aka "puppets") both your matrix user and your hangouts user to
 establish the bridge. For more information, see:
 https://github.com/AndrewJDR/matrix-puppet-bridge
 
-## requirements
+To interact with the google hangouts servers, this bridge uses a python hangouts client library called hangups:
+https://github.com/tdryer/hangups
 
-# For hangups, python3 is required:
+# requirements
+
+### For hangups, python3 is required:
 sudo apt install python3 python3-dev
 (Or similar for your package manager)
 
-# Install hangups system-wide:
+### Install hangups system-wide:
 `sudo pip3 install hangups`
 
-## installation
+# installation
 
 clone this repo
 
@@ -22,17 +25,17 @@ cd into the directory
 
 run `npm install`
 
-## configure
+# configure
 
 Copy `config.sample.json` to `config.json` and update it to match your setup
 
-## Login to hangouts to save your authentication token.
+### Login to hangouts to save your authentication token.
 
 Run `python3 hangups_client.py --login-and-save-token`
 
 This saves an authentication token into the default hangups token path (`~/.cache/hangups/` as of this writing).
 
-## register the app service
+### register the app service
 
 Generate an `hangouts-registration.yaml` file with `node index.js -r -u "http://your-bridge-server:8090"`
 
@@ -47,7 +50,7 @@ Launch the bridge with ```npm start```.
 Restart your HS.
 
 # TODO
-* Be able to start a brand new hangouts conversation fully from within a matrix client by choosing participants from your google contacts list. Currently, to start a new conversation this way, you'll have to start the conversation with an official hangouts client where your full contact list is available and once you send a message a bridged room will automatically be created for you. After this, you can carry on the rest of the conversation using your matrix client. Naturally, any incoming message will also automatically create a bridged room for you, so this limitation only applies when creating brand new rooms yourself.
+* Be able to start a brand new hangouts conversation fully from within a matrix client by choosing participants from your google contacts list. Currently, to start a new conversation this way, you'll have to start the conversation with an official hangouts client where your full contact list is available and once you send a message a bridged room will automatically be created for you. After this, you can carry on the rest of the conversation using your matrix client. Naturally, any incoming message will also automatically create a bridged room for you, so this limitation only applies when creating brand new rooms yourself. See this comment by tfreedman for a proposed solution to this problem - https://github.com/kfatehi/matrix-puppet-facebook/issues/2#issuecomment-274170696 and if you have any better ideas, please let us know!
 * Add a bot to each hangouts bridge room and use the bot's presence to indicate whether the bridge is running. This is an easy way to check on the status of the bridge.
 * Read receipt support.
 * Full image message support in both directions.
