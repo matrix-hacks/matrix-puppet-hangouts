@@ -13,8 +13,10 @@ class Client extends EventEmitter {
     this.hangupsProc = null;
   }
   connect() {
-    this.hangupsProc = require("child_process").spawn('python3', ['-u', 'hangups_client.py'], { stdio: [ 'pipe', 'ipc', 2 ] });
-    this.hangupsProc.on("message", (data) => {
+    this.hangupsProc = require("child_process").spawn('python3', ['-u', 'hangups_client.py'], { stdio: [ 'pipe', 'pipe', 2 ] });
+    this.hangupsProc.stdout.on("data", (str) => {
+      debugVerbose("got message from hangups before JSON.parse():", str.toString());
+      var data = JSON.parse(str);
       debugVerbose("emitting message", data);
       this.emit('message', data);
     });

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "DEBUG=matrix-puppet:* node index.js",
+    "start": "DEBUG=*matrix-puppet:* node index.js",
     "test": "echo \"no tests at this time\"; exit 1"
   },
   "keywords": [
