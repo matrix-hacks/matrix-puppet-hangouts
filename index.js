@@ -32,7 +32,7 @@ class App extends MatrixPuppetBridgeBase {
     this.thirdPartyClient.connect();
 
     this.thirdPartyClient.on('status', (statusTxt)=> {
-      this.sendThirdPartyProtocolStatusMsg(statusTxt);
+      this.sendStatusMsg(statusTxt);
     });
 
     this.thirdPartyClient.on('message', (data)=> {
