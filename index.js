@@ -16,6 +16,9 @@ class App extends MatrixPuppetBridgeBase {
   getServicePrefix() {
     return "hangouts";
   }
+  getServiceName() {
+    return "Hangouts";
+  }
   defaultDeduplicationTag() {
     return " \u200b"; // Unicode Character 'ZERO WIDTH SPACE'
   }
@@ -27,6 +30,10 @@ class App extends MatrixPuppetBridgeBase {
     this.userId = null;
     this.thirdPartyClient = new HangoutsClient();
     this.thirdPartyClient.connect();
+
+    this.thirdPartyClient.on('status', (statusTxt)=> {
+      this.sendThirdPartyProtocolStatusMsg(statusTxt);
+    });
 
     this.thirdPartyClient.on('message', (data)=> {
       if(data && data.type === 'message')

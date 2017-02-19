@@ -16,6 +16,7 @@ class Client extends EventEmitter {
     this.hangupsProc = require("child_process").spawn('python3', ['-u', 'hangups_client.py']);
 
     this.hangupsProc.stderr.on("data", (str) => {
+      this.emit('status', str.toString());
       debugVerbose("status message from hangups process:", str.toString());
     });
 
