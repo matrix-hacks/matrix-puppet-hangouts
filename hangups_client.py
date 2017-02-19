@@ -20,6 +20,12 @@ import os
 from hangups.auth import CredentialsPrompt, RefreshTokenCache, get_auth
 import appdirs
 
+global cachedStdout
+
+def print_jsonmsg(*args, **kwargs):
+    global cachedStdout
+    print(*args, file=cachedStdout, **kwargs)
+
 class NullCredentialsPrompt(object):
     @staticmethod
     def get_email():
@@ -32,7 +38,6 @@ class NullCredentialsPrompt(object):
     @staticmethod
     def get_verification_code():
         return ''
-
 
 def run_example(example_coroutine, *extra_args):
     """Run a hangups example coroutine.
@@ -165,10 +170,10 @@ def on_event(conv_event):
                 'self_user_id':user_list._self_user.id_.chat_id,
                 'user_id':{'chat_id':conv_event.user_id.chat_id, 'gaia_id':conv_event.user_id.gaia_id}
             })
-            print(msgJson)
+            print_jsonmsg(msgJson)
 
         except Exception as error:
-            print(json.dumps({"status":"error", "exception":repr(error)}))
+            print(repr(error))
 
 
         #event_queue.put(msgJson)
@@ -180,8 +185,14 @@ def _on_message_sent(future):
     try:
         future.result()
     except hangups.NetworkError:
-        print(json.dumps({"status":"error", "exception":"Message send failure"}))
-    print(json.dumps({"status":"success"}))
+        # TODO: Properly notify the bridge that a message send failure has
+        # occurred, so it can react in some way (e.g. alert the owner with a
+        # message).
+        print("Message send failure!")
+    # TODO: Properly notify the bridge that a message has successfully sent so
+    # it can react in some way (e.g. set a read receipt on the message showing
+    # that the bot read the message)
+    #print_jsonmsg(json.dumps({"status":"success"}))
 
 @asyncio.coroutine
 def listen_events(client, _):
@@ -220,7 +231,9 @@ def listen_events(client, _):
                 raise Exception("Invalid cmd specified!")
 
         except Exception as error:
-            print(json.dumps({"status":"error", "exception":repr(error)}))
+            print(repr(error))
 
 if __name__ == '__main__':
+    cachedStdout = sys.stdout
+    sys.stdout = sys.stderr
     run_example(listen_events)
