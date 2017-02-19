@@ -26,13 +26,15 @@ class App extends MatrixPuppetBridgeBase {
     return "\\u200b$"; // Unicode Character 'ZERO WIDTH SPACE'
   }
   initThirdPartyClient() {
+    this.sendStatusMsg({fixedWidthOutput:false}, "Starting hangouts bridge!");
+
     this.threadInfo = {};
     this.userId = null;
     this.thirdPartyClient = new HangoutsClient();
     this.thirdPartyClient.connect();
 
     this.thirdPartyClient.on('status', (statusTxt)=> {
-      this.sendStatusMsg(statusTxt);
+      this.sendStatusMsg({}, statusTxt);
     });
 
     this.thirdPartyClient.on('message', (data)=> {
@@ -52,9 +54,11 @@ class App extends MatrixPuppetBridgeBase {
           };
           return this.handleThirdPartyRoomMessage(payload).catch(err => {
             console.log("handleThirdPartyRoomMessage error", err);
+            sendStatusMsg({}, "handleThirdPartyRoomMessage error", err);
           });
         } catch(er) {
           console.log("incoming message handling error:", er);
+          sendStatusMsg({}, "incoming message handling error:", err);
         }
       }
 
