@@ -18,7 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.4.7",
-    "matrix-puppet-bridge": "https://github.com/AndrewJDR/matrix-puppet-bridge.git#v1.7.1"
+    "matrix-puppet-bridge": "https://github.com/AndrewJDR/matrix-puppet-bridge.git#v1.7.2"
   },
   "devDependencies": {
     "eslint": "^3.12.2"
