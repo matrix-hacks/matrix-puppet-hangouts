@@ -184,11 +184,11 @@ def _on_message_sent(future):
     """Handle showing an error if a message fails to send."""
     try:
         future.result()
-    except hangups.NetworkError:
+    except Exception as e:
         # TODO: Properly notify the bridge that a message send failure has
         # occurred, so it can react in some way (e.g. alert the owner with a
         # message).
-        print("Message send failure!")
+        print("Message send failure! Exception: %s" % str(e))
     # TODO: Properly notify the bridge that a message has successfully sent so
     # it can react in some way (e.g. set a read receipt on the message showing
     # that the bot read the message)
