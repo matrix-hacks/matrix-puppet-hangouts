@@ -51,6 +51,7 @@ class App extends MatrixPuppetBridgeBase {
             senderName: data.user,
             senderId: isMe ? undefined : data.user_id.chat_id,
             text: data.content,
+            avatarUrl: data.photo_url,
           };
           return this.handleThirdPartyRoomMessage(payload).catch(err => {
             console.log("handleThirdPartyRoomMessage error", err);

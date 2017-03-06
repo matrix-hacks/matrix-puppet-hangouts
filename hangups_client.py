@@ -166,6 +166,7 @@ def on_event(conv_event):
                 'content':conv_event.text,
                 'conversation_id': conv.id_,
                 'conversation_name':get_conv_name(conv),
+                'photo_url':user.photo_url,
                 'user':user.full_name,
                 'self_user_id':user_list._self_user.id_.chat_id,
                 'user_id':{'chat_id':conv_event.user_id.chat_id, 'gaia_id':conv_event.user_id.gaia_id}
