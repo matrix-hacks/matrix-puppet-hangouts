@@ -31,7 +31,12 @@ Copy `config.sample.json` to `config.json` and update it to match your setup
 
 ### Login to hangouts to save your authentication token.
 
-Run `python3 hangups_client.py --login-and-save-token`
+Run the following
+
+```
+mkdir -p ~/.cache/hangups
+python3 hangups_client.py --login-and-save-token
+```
 
 This saves an authentication token into the default hangups token path (`~/.cache/hangups/` as of this writing).
 
