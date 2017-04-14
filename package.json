@@ -1,6 +1,6 @@
 {
   "name": "matrix-puppet-hangouts",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.4.7",
-    "matrix-puppet-bridge": "~1.9.1"
+    "matrix-puppet-bridge": "~1.13.0"
   },
   "devDependencies": {
     "eslint": "^3.12.2"

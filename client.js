@@ -34,6 +34,7 @@ class Client extends EventEmitter {
     let themsg = { 'cmd': "sendmessage", 'conversation_id':id,  'msgbody': msg };
     debugVerbose('sending message to hangouts subprocess: ', JSON.stringify(themsg));
     this.hangupsProc.stdin.write(JSON.stringify(themsg) + "\n");
+    return Promise.resolve();
   }
 }
 

@@ -3,3 +3,4 @@ persist
 config.json
 node_modules
 *.yaml
+/env
