@@ -35,6 +35,23 @@ Run `python3 hangups_client.py --login-and-save-token`
 
 This saves an authentication token into the default hangups token path (`~/.cache/hangups/` as of this writing).
 
+#### Troubleshooting Login
+
+If you get an error like this
+
+```
+Traceback (most recent call last):
+  File "/home/keyvan/code/matrix-puppet-hangouts/env/lib/python3.6/site-packages/hangups/auth.py", line 158, in get_auth
+    raise GoogleAuthError("Refresh token not found")
+hangups.auth.GoogleAuthError: Refresh token not found
+```
+
+Then try logging in through a real browser first (lynx should work) to get past the SMS verification.
+
+If you are still having this issue, make sure you turn off "Login with my phone" and "2-step verification". You may be able to turn these back on AFTER you've successfully logged in, but this is unconfirmed.
+
+You can control these settings here: https://myaccount.google.com/security
+
 ### register the app service
 
 Generate an `hangouts-registration.yaml` file with `node index.js -r -u "http://your-bridge-server:8090"`
