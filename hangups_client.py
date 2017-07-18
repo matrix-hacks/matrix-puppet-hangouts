@@ -10,6 +10,7 @@ from hangups.ui.utils import get_conv_name
 import sys
 import json
 import queue
+import time
 
 from asyncio.streams import StreamWriter, FlowControlMixin
 import argparse
@@ -65,10 +66,21 @@ def run_example(example_coroutine, *extra_args):
             print("Hangouts login failed. Either you didn't log in yet, or your refresh token expired.\nPlease log in with --login-and-save-token")
             return
 
-    client = hangups.Client(cookies)
+    while 1:
+        print("Attempting main loop...")
+        client = hangups.Client(cookies, max_retries=float('inf'), retry_backoff_base=1.2)
+        task = asyncio.async(_async_main(example_coroutine, client, args))
+        loop = asyncio.get_event_loop()
 
-    task = asyncio.async(_async_main(example_coroutine, client, args))
-    loop = asyncio.get_event_loop()
+        try:
+            loop.run_until_complete(task)
+        except KeyboardInterrupt:
+            task.cancel()
+            loop.run_forever()
+        except:
+            pass
+        finally:
+            time.sleep(5)
 
     try:
         loop.run_until_complete(task)
