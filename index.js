@@ -26,7 +26,9 @@ class App extends MatrixPuppetBridgeBase {
     return "\\u200b$"; // Unicode Character 'ZERO WIDTH SPACE'
   }
   initThirdPartyClient() {
-    this.sendStatusMsg({fixedWidthOutput:false}, "Starting hangouts bridge!");
+    // We used to call this here, but can't do so anymore because the bridge isn't ready yet at this point.
+    // Fixes error: "Cannot read property 'getClient' of null"
+    //this.sendStatusMsg({fixedWidthOutput:false}, "Starting hangouts bridge!");
 
     this.threadInfo = {};
     this.userId = null;
@@ -99,6 +101,7 @@ new Cli({
       reg.setAppServiceToken(AppServiceRegistration.generateToken());
       reg.setSenderLocalpart("hangoutsbot");
       reg.addRegexPattern("users", "@hangouts_.*", true);
+      reg.addRegexPattern("aliases", "#hangouts_.*", true);
       callback(reg);
     }).catch(err=>{
       console.error(err.message);
