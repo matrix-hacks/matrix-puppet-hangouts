@@ -69,7 +69,7 @@ def run_example(example_coroutine, *extra_args):
     while 1:
         print("Attempting main loop...")
         client = hangups.Client(cookies, max_retries=float('inf'), retry_backoff_base=1.2)
-        task = asyncio.async(_async_main(example_coroutine, client, args))
+        task = asyncio.ensure_future(_async_main(example_coroutine, client, args))
         loop = asyncio.get_event_loop()
 
         try:
@@ -116,7 +116,7 @@ def _get_parser():
 def _async_main(example_coroutine, client, args):
     """Run the example coroutine."""
     # Spawn a task for hangups to run in parallel with the example coroutine.
-    task = asyncio.async(client.connect())
+    task = asyncio.ensure_future(client.connect())
 
     # Wait for hangups to either finish connecting or raise an exception.
     on_connect = asyncio.Future()
@@ -237,7 +237,7 @@ def listen_events(client, _):
 
             if msgJson['cmd'] == 'sendmessage':
                 segments = hangups.ChatMessageSegment.from_str(msgJson['msgbody'])
-                asyncio.async(
+                asyncio.ensure_future(
                     conv.send_message(segments)
                 ).add_done_callback(_on_message_sent)
             else:
