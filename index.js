@@ -48,17 +48,35 @@ class App extends MatrixPuppetBridgeBase {
           };
           debugVerbose("incoming message data:", data);
           const isMe = data.user_id.chat_id === data.self_user_id;
-          const payload = {
-            roomId: data.conversation_id,
-            senderName: data.user,
-            senderId: isMe ? undefined : data.user_id.chat_id,
-            text: data.content,
-            avatarUrl: data.photo_url,
-          };
-          return this.handleThirdPartyRoomMessage(payload).catch(err => {
-            console.log("handleThirdPartyRoomMessage error", err);
-            sendStatusMsg({}, "handleThirdPartyRoomMessage error", err);
-          });
+          // normal message
+          if (!data.attachments.length) {
+            const payload = {
+              roomId: data.conversation_id,
+              senderName: data.user,
+              senderId: isMe ? undefined : data.user_id.chat_id,
+              text: data.content,
+              avatarUrl: data.photo_url,
+            };
+            return this.handleThirdPartyRoomMessage(payload).catch(err => {
+              console.log("handleThirdPartyRoomMessage error", err);
+              sendStatusMsg({}, "handleThirdPartyRoomMessage error", err);
+            });
+          }
+          // image message
+          return Promise.all(data.attachments.map((attachment)=> {
+            const payload = {
+              roomId: data.conversation_id,
+              senderName: data.user,
+              senderId: isMe ? undefined : data.user_id.chat_id,
+              text: data.content,
+              url: attachment,
+              avatarUrl: data.photo_url,
+            };
+            return this.handleThirdPartyRoomImageMessage(payload).catch(err => {
+              console.log("handleThirdPartyRoomMessage error", err);
+              sendStatusMsg({}, "handleThirdPartyRoomMessage error", err);
+            });
+          }));
         } catch(er) {
           console.log("incoming message handling error:", er);
           sendStatusMsg({}, "incoming message handling error:", err);
@@ -85,6 +103,9 @@ class App extends MatrixPuppetBridgeBase {
       topic: "Hangouts Chat"
     };
     return roomData;
+  }
+  sendReadReceiptAsPuppetToThirdPartyRoomWithId() {
+    // not available for now
   }
   sendMessageAsPuppetToThirdPartyRoomWithId(id, text) {
     return this.thirdPartyClient.send(id, text);

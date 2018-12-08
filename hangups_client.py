@@ -176,6 +176,7 @@ def on_event(conv_event):
                 'status':'success',
                 'type':'message',
                 'content':conv_event.text,
+                'attachments': conv_event.attachments,
                 'conversation_id': conv.id_,
                 'conversation_name':get_conv_name(conv),
                 'photo_url':user.photo_url,
