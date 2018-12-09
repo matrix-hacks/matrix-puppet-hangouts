@@ -89,6 +89,9 @@ class App extends MatrixPuppetBridgeBase {
   sendMessageAsPuppetToThirdPartyRoomWithId(id, text) {
     return this.thirdPartyClient.send(id, text);
   }
+  sendImageMessageAsPuppetToThirdPartyRoomWithId(id, data) {
+    return this.thirdPartyClient.sendImage(id, data);
+  }
 }
 
 new Cli({
