@@ -71,6 +71,10 @@ Launch the bridge with ```npm start```.
 
 Restart your HS.
 
+## Discussion, Help and Support
+
+Join us in [the Matrix Puppet Bridge room](https://riot.im/app/#/room/#matrix-puppet-bridge:matrix.org)
+
 ## TODO
 * Be able to start a brand new hangouts conversation fully from within a matrix client by choosing participants from your google contacts list. Currently, to start a new conversation this way, you'll have to start the conversation with an official hangouts client where your full contact list is available and once you send a message a bridged room will automatically be created for you. After this, you can carry on the rest of the conversation using your matrix client. Naturally, any incoming message will also automatically create a bridged room for you, so this limitation only applies when creating brand new rooms yourself. See this comment by tfreedman for a proposed solution to this problem - https://github.com/kfatehi/matrix-puppet-facebook/issues/2#issuecomment-274170696 and if you have any better ideas, please let us know!
 * Add a bot to each hangouts bridge room and use the bot's presence to indicate whether the bridge is running. This is an easy way to check on the status of the bridge.
