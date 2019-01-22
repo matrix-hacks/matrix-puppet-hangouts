@@ -3,7 +3,7 @@
 This is a Matrix bridge for Google Hangouts.
 It logs in as (aka "puppets") both your matrix user and your hangouts user to
 establish the bridge. For more information, see:
-https://github.com/AndrewJDR/matrix-puppet-bridge
+https://github.com/matrix-hacks/matrix-puppet-bridge
 
 To interact with the google hangouts servers, this bridge uses a python hangouts client library called hangups:
 https://github.com/tdryer/hangups
