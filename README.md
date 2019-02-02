@@ -10,9 +10,11 @@ https://github.com/tdryer/hangups
 
 ## requirements
 
-### For hangups, python3 is required:
+### For hangups, and our own python, python3 (Python 3.5+ for async) is required:
 sudo apt install python3 python3-dev
 (Or similar for your package manager)
+
+Make sure your python3 is version 3.5+ by running `python3 --version`
 
 ### Install hangups system-wide:
 `sudo pip3 install hangups`
