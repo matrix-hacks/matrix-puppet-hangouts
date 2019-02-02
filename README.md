@@ -1,4 +1,4 @@
-# matrix-puppet-hangouts
+# matrix-puppet-hangouts [![#matrix-puppet-bridge:matrix.org](https://img.shields.io/matrix/matrix-puppet-bridge:matrix.org.svg?label=%23matrix-puppet-bridge%3Amatrix.org&logo=matrix&server_fqdn=matrix.org)](https://matrix.to/#/#matrix-puppet-bridge:matrix.org)
 
 This is a Matrix bridge for Google Hangouts.
 It logs in as (aka "puppets") both your matrix user and your hangouts user to
@@ -75,7 +75,7 @@ Restart your HS.
 
 ## Discussion, Help and Support
 
-Join us in [the Matrix Puppet Bridge room](https://riot.im/app/#/room/#matrix-puppet-bridge:matrix.org)
+Join us in the [![Matrix Puppet Bridge](https://user-images.githubusercontent.com/13843293/52007839-4b2f6580-24c7-11e9-9a6c-14d8fc0d0737.png)](https://matrix.to/#/#matrix-puppet-bridge:matrix.org) room
 
 ## TODO
 * Be able to start a brand new hangouts conversation fully from within a matrix client by choosing participants from your google contacts list. Currently, to start a new conversation this way, you'll have to start the conversation with an official hangouts client where your full contact list is available and once you send a message a bridged room will automatically be created for you. After this, you can carry on the rest of the conversation using your matrix client. Naturally, any incoming message will also automatically create a bridged room for you, so this limitation only applies when creating brand new rooms yourself. See this comment by tfreedman for a proposed solution to this problem - https://github.com/kfatehi/matrix-puppet-facebook/issues/2#issuecomment-274170696 and if you have any better ideas, please let us know!
