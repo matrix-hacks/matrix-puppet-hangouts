@@ -17,9 +17,21 @@ import argparse
 import asyncio
 import logging
 import os
+import aiohttp
+from types import SimpleNamespace
 
 from hangups.auth import CredentialsPrompt, RefreshTokenCache, get_auth
 import appdirs
+
+MIME_EXT = {
+    'image/gif': '.gif',
+    'image/jpeg': '.jpg',
+    'image/png': '.png',
+    'image/svg+xml': '.svg',
+    'image/tiff': '.tiff',
+    'image/webp': '.webp',
+    'image/x-icon': '.ico',
+}
 
 global cachedStdout
 
@@ -207,6 +219,13 @@ def _on_message_sent(future):
     # that the bot read the message)
     #print_jsonmsg(json.dumps({"status":"success"}))
 
+async def download_image(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            if resp.status == 200:
+                data = await resp.read()
+                return SimpleNamespace(name=url, read=lambda: data)
+
 @asyncio.coroutine
 def listen_events(client, _):
     global user_list, conv_list
@@ -239,6 +258,16 @@ def listen_events(client, _):
                 segments = hangups.ChatMessageSegment.from_str(msgJson['msgbody'])
                 asyncio.ensure_future(
                     conv.send_message(segments)
+                ).add_done_callback(_on_message_sent)
+            elif msgJson['cmd'] == 'sendimage':
+                segments = []
+                image_file = yield from download_image(msgJson['url'])
+                # deduplicate
+                image_file.name += '_mx_' + MIME_EXT.get(msgJson['mimetype'], '.unk')
+                if not image_file:
+                    raise Exception("Invalid image url")
+                asyncio.ensure_future(
+                    conv.send_message(segments, image_file=image_file)
                 ).add_done_callback(_on_message_sent)
             else:
                 raise Exception("Invalid cmd specified!")

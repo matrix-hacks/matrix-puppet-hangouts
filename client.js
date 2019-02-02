@@ -36,6 +36,13 @@ class Client extends EventEmitter {
     this.hangupsProc.stdin.write(JSON.stringify(themsg) + "\n");
     return Promise.resolve();
   }
+
+  sendImage(id, data) {
+    let themsg = { 'cmd': "sendimage", 'conversation_id':id,  'msgbody': data.text, 'url': data.url, 'mimetype': data.mimetype };
+    debugVerbose('sending message to hangouts subprocess: ', JSON.stringify(themsg));
+    this.hangupsProc.stdin.write(JSON.stringify(themsg) + "\n");
+    return Promise.resolve();
+  }
 }
 
 module.exports = Client;
