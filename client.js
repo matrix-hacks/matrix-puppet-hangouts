@@ -26,9 +26,9 @@ class Client extends EventEmitter {
         var data = JSON.parse(str);
         debugVerbose("emitting message", data);
         this.emit('message', data);
-	  } catch {
-		debugVerbose("ERROR: incorrect JSON format: ", str.toStrin());
-	  }
+      } catch {
+        debugVerbose("ERROR: incorrect JSON format: ", str.toStrin());
+      }
     });
 
     console.log('started hangups child');
