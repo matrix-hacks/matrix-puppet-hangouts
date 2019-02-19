@@ -11,6 +11,7 @@ import sys
 import json
 import queue
 import time
+import datetime
 
 from asyncio.streams import StreamWriter, FlowControlMixin
 import argparse
@@ -34,6 +35,8 @@ MIME_EXT = {
 }
 
 global cachedStdout
+
+global client_log
 
 def print_jsonmsg(*args, **kwargs):
     global cachedStdout
@@ -180,8 +183,22 @@ def on_event(conv_event):
     global conv_list, event_queue
     #pprint(getmembers(conv_event))
     if isinstance(conv_event, hangups.ChatMessageEvent):
+        client_log.write('preparing data to send a message to node! %s message info:\n' % (datetime.datetime.now()))
+        client_log.write('conv_event.text: ' + conv_event.text + "\n")
+        client_log.write('(have not retrieved conv/user yet. doing that now...\n')
+
         conv = conv_list.get(conv_event.conversation_id)
         user = conv.get_user(conv_event.user_id)
+
+        client_log.write('got conv/user! data:\n')
+        client_log.write('conv.id_: ' + conv.id_ + "\n")
+        client_log.write('get_conv_name(conv): ' + get_conv_name(conv) + "\n")
+        client_log.write('user.photo_url: ' + user.photo_url + "\n")
+        client_log.write('user.full_name: ' + user.full_name + "\n")
+        client_log.write('user_list._self_user.id_.chat_id: ' + user_list._self_user.id_.chat_id + "\n")
+        client_log.write('conv_event.user_id.chat_id: ' + conv_event.user_id.chat_id + "\n")
+        client_log.write('conv_event.user_id.gaia_id: ' + conv_event.user_id.gaia_id + "\n")
+        client_log.write('finished preparing data for message. now building json...\n')
 
         try:
             msgJson = json.dumps({
@@ -196,9 +213,13 @@ def on_event(conv_event):
                 'self_user_id':user_list._self_user.id_.chat_id,
                 'user_id':{'chat_id':conv_event.user_id.chat_id, 'gaia_id':conv_event.user_id.gaia_id}
             })
+            client_log.write('built msg json: ' + msgJson + '\n')
+            client_log.write('attempting to send msg json\n');
             print_jsonmsg(msgJson)
+            client_log.write('sent msg json!\n')
 
         except Exception as error:
+            client_log.write('error while trying to build or send msg json: ' + repr(error) + '\n')
             print(repr(error))
 
 
@@ -278,5 +299,7 @@ def listen_events(client, _):
 
 if __name__ == '__main__':
     cachedStdout = sys.stdout
+    client_log = open('hangups_client.log','a', buffering=1)
+    client_log.write('Starting hangups_client.py\n');
     sys.stdout = sys.stderr
     run_example(listen_events)
