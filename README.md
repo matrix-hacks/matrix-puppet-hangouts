@@ -105,7 +105,7 @@ Restart your HS.
 A handy way to control your puppet is through `systemd`. Here is a `systemd` service, that can be called `hangouts-puppet` and placed at `/etc/systemd/system`.
 ```
 [Unit]
-Desctipion=Hangouts Matrix Puppet
+Description=Hangouts Matrix Puppet
 
 [Service]
 Type=simple
