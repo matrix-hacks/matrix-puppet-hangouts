@@ -109,6 +109,7 @@ Description=Hangouts Matrix Puppet
 
 [Service]
 Type=simple
+Environment=DEBUG=verbose:matrix-puppet:*
 User=my-user-who-is-running-puppet-here
 Group=my-group-who-is-running-puppet-here
 WorkingDirectory=/my/path/to/downloaded/puppet/here
