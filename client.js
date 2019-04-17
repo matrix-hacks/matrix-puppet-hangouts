@@ -28,7 +28,7 @@ class Client extends EventEmitter {
         debugVerbose("emitting message", data);
         this.emit('message', data);
       } catch(error) {
-        debugVerbose("ERROR: incorrect JSON format: ", str.toStrin());
+        debugVerbose("ERROR: incorrect JSON format: ", str.toString());
       }
     });
 
