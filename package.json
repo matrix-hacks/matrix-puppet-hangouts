@@ -18,7 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.4.7",
-    "matrix-puppet-bridge": "matrix-hacks/matrix-puppet-bridge#8a8cea3"
+    "matrix-puppet-bridge": "matrix-hacks/matrix-puppet-bridge#c16ac9f"
   },
   "devDependencies": {
     "eslint": "^3.12.2"
