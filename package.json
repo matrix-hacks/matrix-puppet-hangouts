@@ -21,7 +21,7 @@
     "matrix-puppet-bridge": "matrix-hacks/matrix-puppet-bridge#c16ac9f"
   },
   "devDependencies": {
-    "eslint": "^3.12.2"
+    "eslint": "^6.6.0"
   },
   "eslintConfig": {
     "env": {
